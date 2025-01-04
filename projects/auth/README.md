@@ -1,63 +1,56 @@
 # Auth
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+## Overview
+This Angular library provides an HTTP interceptor (AuthInterceptor) designed to handle authentication and authorization for HTTP requests. It integrates with a customizable AuthService and offers a ready-to-use implementation, KeycloakAuthService, for Keycloak integration.
 
-## Code scaffolding
+## Key Features
+ - Seamless HTTP request interception for adding authentication headers.
+ - Handles 401 Unauthorized responses automatically.
+ - Fully customizable authentication logic via the AuthService abstract class.
+ - Built-in Keycloak support with KeycloakAuthService.
+ - Configurable baseURI for API endpoint routing.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+## Installation
 ```bash
-ng generate component component-name
+npm install @imadelfetouh/auth
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+## Getting Started
+### 1. app.config.ts
+We will use Keycloak for this example. If you need custom authentication logic, extend the AuthService abstract class and provide your implementation.
 ```
-
-## Building
-
-To build the library, run:
-
-```bash
-ng build auth
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideKeycloakAuth(
+      {baseUri: 'https://api.example.com'},
+      {url: "https://myapp.keycloak.com", realm: "my-realm", clientId: "my-clientId"}
+      ),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useExisting: AuthInterceptor,
+      multi: true
+    },
+  ]
+};
 ```
+## Library Components
+### AuthInterceptor
+The AuthInterceptor is the core of the library. It intercepts HTTP requests, appends the authentication token, and handles 401 Unauthorized responses.
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+#### Configuration
+The AuthInterceptor requires:
+ - AuthInterceptorConfig to provide a baseURI.
+ - An AuthService implementation to manage authentication logic.
 
-### Publishing the Library
+### AuthService (Abstract Class)
+The AuthService defines the contract for custom authentication logic. You can extend this class to implement your own authentication logic. KeycloakAuthService is such an example
 
-Once the project is built, you can publish your library by following these steps:
+## Customization
+### Custom Auth Logic
+To provide custom authentication logic, implement AuthService and override the necessary methods.
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/auth
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Extend Interceptor Logic
+You can extend the AuthInterceptor to customize its behavior.
