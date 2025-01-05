@@ -21,10 +21,16 @@ We will use Keycloak for this example. If you need custom authentication logic, 
 ```
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideKeycloakAuth(
-      {baseUri: 'https://api.example.com'},
-      {url: "https://myapp.keycloak.com", realm: "my-realm", clientId: "my-clientId"}
-      ),
+    provideKeycloakAuthInterceptor({
+      authInterceptorConfig: {
+        baseUri: 'http://81.17.103.220:8888'
+      },
+      keycloakAuthServiceConfig: {
+        url: "http://81.17.103.220:8080",
+        realm: "salon",
+        clientId: "nailsbyimad"
+      }
+    }),
     provideHttpClient(
       withInterceptorsFromDi()
     ),

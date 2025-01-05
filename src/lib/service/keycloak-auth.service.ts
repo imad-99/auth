@@ -1,7 +1,7 @@
 import Keycloak from 'keycloak-js';
 import {AuthService} from './auth.service';
 
-export interface KeycloakConfig {
+export interface KeycloakAuthServiceConfig {
   url: string
   realm: string
   clientId: string
@@ -10,12 +10,12 @@ export interface KeycloakConfig {
 export class KeycloakAuthService extends AuthService {
   private keycloak: Keycloak
 
-  constructor(keycloakConfig: KeycloakConfig) {
+  constructor(keycloakAuthServiceConfig: KeycloakAuthServiceConfig) {
     super()
     this.keycloak = new Keycloak({
-      url: keycloakConfig.url,
-      realm: keycloakConfig.realm,
-      clientId: keycloakConfig.clientId
+      url: keycloakAuthServiceConfig.url,
+      realm: keycloakAuthServiceConfig.realm,
+      clientId: keycloakAuthServiceConfig.clientId
     })
   }
 

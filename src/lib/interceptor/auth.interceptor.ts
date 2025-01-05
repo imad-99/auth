@@ -4,7 +4,7 @@ import {fromPromise} from 'rxjs/internal/observable/innerFrom';
 import {AuthService} from '../service/auth.service';
 
 export interface AuthInterceptorConfig {
-  baseUri: string
+  apiBaseUri: string
 }
 
 export class AuthInterceptor implements HttpInterceptor {
@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     req = req.clone({
-      url: `${this.authInterceptorConfig.baseUri}${url}`
+      url: `${this.authInterceptorConfig.apiBaseUri}${url}`
     })
 
     return fromPromise(this.authService.getAuthToken()).pipe(
