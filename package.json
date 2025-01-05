@@ -1,6 +1,6 @@
 {
   "name": "@imadelfetouh/auth",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "scripts": {
     "ng": "ng",
     "build": "ng build"
