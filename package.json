@@ -1,6 +1,13 @@
 {
-  "name": "@imadelfetouh/auth",
-  "version": "0.0.7",
+  "name": "@imad-99/auth",
+  "version": "0.0.2",
+  "description": "An Angular library providing a customizable HTTP interceptor for authentication and authorization, with built-in support for Keycloak and extensible AuthService logic.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imad-99/auth.git"
+  },
+  "homepage": "https://github.com/imad-99/auth.git",
+  "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build"

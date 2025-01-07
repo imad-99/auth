@@ -23,12 +23,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideKeycloakAuthInterceptor({
       authInterceptorConfig: {
-        baseUri: 'http://81.17.103.220:8888'
+        apiBaseUri: 'https://my-api.com'
       },
       keycloakAuthServiceConfig: {
-        url: "http://81.17.103.220:8080",
-        realm: "salon",
-        clientId: "nailsbyimad"
+        url: "https://my-keycloak.com",
+        realm: "my-realm",
+        clientId: "my-clientId"
       }
     }),
     provideHttpClient(
@@ -53,6 +53,13 @@ The AuthInterceptor requires:
 
 ### AuthService (Abstract Class)
 The AuthService defines the contract for custom authentication logic. You can extend this class to implement your own authentication logic. KeycloakAuthService is such an example
+
+### Injecting AuthInterceptor and AuthService
+You can inject AuthService and AuthInterceptor into your components or services. This allows you to access their methods and properties directly.
+```
+constructor(private authInterceptor: AuthInterceptor, private authService: AuthService) {
+}
+```
 
 ## Customization
 ### Custom Auth Logic

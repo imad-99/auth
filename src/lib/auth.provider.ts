@@ -14,13 +14,11 @@ interface KeycloakInterceptorConfig extends InterceptorConfig {
 export function provideKeycloakAuthInterceptor(keycloakInterceptorConfig: KeycloakInterceptorConfig): EnvironmentProviders {
   const authService: AuthService = new KeycloakAuthService(keycloakInterceptorConfig.keycloakAuthServiceConfig)
   const authInterceptor: AuthInterceptor = new AuthInterceptor(keycloakInterceptorConfig.authInterceptorConfig, authService);
-
   return createEnvironmentProviders(authInterceptor, authService)
 }
 
 export function provideAuthInterceptor(interceptorConfig: InterceptorConfig, authService: AuthService): EnvironmentProviders {
   const authInterceptor: AuthInterceptor = new AuthInterceptor(interceptorConfig.authInterceptorConfig, authService);
-
   return createEnvironmentProviders(authInterceptor, authService)
 }
 
